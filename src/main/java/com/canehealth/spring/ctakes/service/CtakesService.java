@@ -141,7 +141,7 @@ public class CtakesService {
 	@Cacheable(value = "ctakes")
 	public String Jcas2json(String note) throws Exception {
 		jcas.reset();
-		CPE=true;
+		CPE=false;
 		if(CPE) {
 		runCollectionProccesingEngine(note, aed);
 		return "done";
@@ -159,7 +159,7 @@ public class CtakesService {
 	
 		
    // Plain text pipeline		
-		//	SimplePipeline.runPipeline(jcas, aed);
+			SimplePipeline.runPipeline(jcas, aed);
 		
 		//SimplePipeline.runPipeline(jcas, sed);
 		

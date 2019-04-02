@@ -57,14 +57,16 @@ public enum  Neo4jPopulation2 {
 
 	   static private final Logger LOGGER = Logger.getLogger("Neo4jPopulation2");
 
-		static private final String OUTPUT_GRAPH_DB = "C:\\Users\\sanar\\Desktop\\neoctakes\\databases\\graph.db";
-
+// old-lady	   static private final String OUTPUT_GRAPH_DB = "C:\\Users\\sanar\\.Neo4jDesktop\\neo4jDatabases\\database-da86d6c8-5091-4ae9-97c2-9c623e210e77\\installation-3.5.0\\data\\databases\\graph.db"/*"C:\\Users\\sanar\\Desktop\\neoctakes\\databases\\graph.db"*/;
+/*a2z-testing*/static private final String OUTPUT_GRAPH_DB = "C:\\Users\\sanar\\.Neo4jDesktop\\neo4jDatabases\\database-d22ae045-5a99-4059-b9be-d9f3e9929e4f\\installation-3.5.0\\data\\databases\\graph.db"/*"C:\\Users\\sanar\\Desktop\\neoctakes\\databases\\graph.db"*/;
+	   
+	   
 		private GraphDatabaseService _graphDb;
 		public Node docnode;
 		private JCas jcas;
 		private ResourceIterator<Node> nodes, nodes2 ;
-
-		List<String> ignoreList = Arrays.asList("history","condition",/*"anterior",*/"medications","medication" , "problem", "disease", "disorder", "sign" , /*"oral", "oral tablet",*/ "pharmaceutical preparations");
+		boolean isFreeText= true;
+		List<String> ignoreList = Arrays.asList("history","condition",/*"anterior",*/"medications","medication" , "problem", "disease", "disorder", "sign" , /*"oral", "oral tablet",*/ "pharmaceutical preparations", "test", "tests" ,"family history", "program", "programs" );
 
 		public enum Mentions implements Label {
 			document,MedicationMention,SignSymptomMention,DiseaseDisorderMention,AnatomicalSiteMention,ProcedureMention,
@@ -103,7 +105,7 @@ public enum  Neo4jPopulation2 {
 				nodes = _graphDb.findNodes( Mentions.document, "doc-id", doc_id );
             	if ( nodes.hasNext() )
             		
-            	{
+            	{   _graphDb.shutdown();
             		return 0;
             	}
             		
@@ -122,7 +124,7 @@ public enum  Neo4jPopulation2 {
 		//	insertTimeMentions();
 			
 			
-			insertNodeMedication();
+	//		insertNodeMedication();
 			insertNodeSignSymptoms();
 			insertNodeProcedure();
 			insertNodeAnatomicalSite();
@@ -130,13 +132,14 @@ public enum  Neo4jPopulation2 {
 			insertDegreeOfTextRelations();
 			insertLocationOfTextRelations();
 			
+			_graphDb.shutdown();
 			return 1;
 			}	
 			
 		
 		private String createID( Object o) {
 			
-		return  String.valueOf(((IdentifiedAnnotation) o).getBegin()) +"-"+ String.valueOf(((IdentifiedAnnotation) o).getEnd()); //+ String.valueOf(doc_id);
+		return  String.valueOf(((IdentifiedAnnotation) o).getBegin()) +"-"+ String.valueOf(((IdentifiedAnnotation) o).getEnd()) + "-" + doc_id; //+ String.valueOf(doc_id);
 			//return A+B+String.valueOf(doc_id);
 		}
 	
@@ -214,8 +217,11 @@ public enum  Neo4jPopulation2 {
 					t.getSegmentID();
 					t.getCoveredText();
 				    t.getOntologyConceptArr();
-					if(ignoreList.contains((t.getCoveredText()).toLowerCase()) || !((t.getSegmentID()).equals("2.16.840.1.113883.10.20.22.2.1.1") || (t.getSegmentID()).equals("10160-0")))
-						continue;
+				    if(!isFreeText) 
+				    	if(ignoreList.contains((t.getCoveredText()).toLowerCase()) || !((t.getSegmentID()).equals("2.16.840.1.113883.10.20.22.2.1.1") || (t.getSegmentID()).equals("10160-0")))
+				    		continue;
+				    else if(ignoreList.contains((t.getCoveredText()).toLowerCase()))
+			    		continue;
 					Node medNode = _graphDb.createNode(Mentions.MedicationMention);
 					medNode.setProperty("originalword", t.getCoveredText());
 					insertCommonProperties(t, medNode);
@@ -282,10 +288,11 @@ public enum  Neo4jPopulation2 {
 					// the whole schema of clinicalNotepreprocessor is hell
 					
 					
-				
+				     if (t.getOntologyConceptArr()!= null) {
 					 insertOntologyConcenpt((UmlsConcept) t.getOntologyConceptArr(0),medNode);
+				     }
 					 insertEventProperties(t.getEvent(), medNode);
-			
+				     
 					
 				}
 				tx.success();
@@ -307,10 +314,7 @@ public enum  Neo4jPopulation2 {
 			//      //family history
 			//      //2.16.840.1.113883.10.20.2.10,29545-1,PHYSICAL EXAMINATION,physical exam
 
-			List<String> symptomsectionlist = Arrays.asList("1.3.6.1.4.1.19376.1.5.3.1.3.4","10164-2" , "2.16.840.1.113883.10.20.22.2.4.1", "8716-3", "2.16.840.1.113883.10.20.22.2.13", "46239-0", "1.3.6.1.4.1.19376.1.5.3.1.1.13.2.1", "10154-3" );
-			List<String> futuresymptomsectionlist = Arrays.asList("2.16.840.1.113883.10.20.22.2.41","8653-8" , "2.16.840.1.113883.10.20.22.2.24", "11535-2" );
-			List<String> futuresymptomsectionlist2 = Arrays.asList("2.16.840.1.113883.10.20.22.2.16", "11493-4" );
-
+			
 			Label lb ;
 			Collection<org.apache.ctakes.typesystem.type.textsem.SignSymptomMention> ss = JCasUtil.select(jcas,
 					SignSymptomMention.class);
@@ -322,6 +326,12 @@ public enum  Neo4jPopulation2 {
 			
 					if(ignoreList.contains((t.getCoveredText()).toLowerCase()))
 						continue;	
+					
+                    if (!isFreeText)					
+					{List<String> symptomsectionlist = Arrays.asList("1.3.6.1.4.1.19376.1.5.3.1.3.4","10164-2" , "2.16.840.1.113883.10.20.22.2.4.1", "8716-3", "2.16.840.1.113883.10.20.22.2.13", "46239-0", "1.3.6.1.4.1.19376.1.5.3.1.1.13.2.1", "10154-3" );
+					List<String> futuresymptomsectionlist = Arrays.asList("2.16.840.1.113883.10.20.22.2.41","8653-8" , "2.16.840.1.113883.10.20.22.2.24", "11535-2" );
+					List<String> futuresymptomsectionlist2 = Arrays.asList("2.16.840.1.113883.10.20.22.2.16", "11493-4" );
+
 					if ((t.getSegmentID()).equals("11450-4"))
 						lb=Label.label("Problem");
 					else if (symptomsectionlist.contains((t.getSegmentID()).toLowerCase()))
@@ -331,11 +341,12 @@ public enum  Neo4jPopulation2 {
 					else if (futuresymptomsectionlist2.contains((t.getSegmentID()).toLowerCase()))	
 						lb=Label.label("FutureSymptoms");
 					else continue;
-				
-					t.getCoveredText();
-					t.getAlleviatingFactor();
-					t.getSeverity();
-					t.getEvent().getProperties().getDegree();
+					}
+                    lb=Mentions.SignSymptomMention;
+					//t.getCoveredText();
+					//t.getAlleviatingFactor();
+					//t.getSeverity();
+					//t.getEvent().getProperties().getDegree();
 				
 					String	id=t.getSegmentID();
 				     
@@ -439,7 +450,7 @@ public enum  Neo4jPopulation2 {
 					insertCommonProperties(t, procNode);
 					 insertOntologyConcenpt((UmlsConcept) t.getOntologyConceptArr(0),procNode);
 					 insertEventProperties(t.getEvent(), procNode);
-			//		docnode.createRelationshipTo(procNode, relations.has_mention);
+					docnode.createRelationshipTo(procNode, relations.has_mention);
 				}
 
 				tx.success();
@@ -824,7 +835,7 @@ public enum  Neo4jPopulation2 {
 		         LOGGER.error( "Could not initialize neo4j connection for: " + graphDbPath );
 		         System.exit( -1 );
 		      }
-		   //   registerShutdownHook( _graphDb );
+		      registerShutdownHook( _graphDb );
 		      return _graphDb;
 		   }
 
@@ -839,13 +850,22 @@ public enum  Neo4jPopulation2 {
 		      // Registers a shutdown hook for the Neo4j instance so that it
 		      // shuts down nicely when the VM exits (even if you "Ctrl-C" the
 		      // running application).
-		      Runtime.getRuntime().addShutdownHook( new Thread( () -> {
+		   /*   Runtime.getRuntime().addShutdownHook( new Thread( () -> {
 		         try {
 		            graphDb.shutdown();
 		         } catch ( LifecycleException | RotationTimeoutException multE ) {
 		            // ignore
 		         }
-		      } ) );
+		      } ) );*/
+			   
+			   Runtime.getRuntime().addShutdownHook( new Thread()
+		        {
+		            @Override
+		            public void run()
+		            {
+		                graphDb.shutdown();
+		            }
+		        } );
 		   }
 
 
