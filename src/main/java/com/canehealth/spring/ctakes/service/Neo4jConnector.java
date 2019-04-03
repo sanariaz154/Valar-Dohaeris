@@ -62,7 +62,7 @@ final public class Neo4jConnector extends JCasAnnotator_ImplBase {
 	 //     try ( DotLogger dotLogger = new DotLogger() ) {
 	      //   if ( _outputRootDir == null ) {
 	         try {
-				int success=   Neo4jPopulation2.getInstance()
+				int success=   /*Neo4jPopulation2*/Neo4jPopulationDiseaseOriented.getInstance()
 				                          .insertNodes(jCas);
 			} catch (CASException e) {
 				// TODO Auto-generated catch block

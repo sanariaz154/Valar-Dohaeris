@@ -35,7 +35,7 @@ public class Sectionizer extends JCasAnnotator_ImplBase {
     Logger logger = Logger.getLogger(this.getClass());
     protected static HashMap<String, Pattern> patterns = new HashMap<>();
     protected static HashMap<String, String> section_names = new HashMap<>();
-    protected static final String DEFAULT_SECTION_FILE_NAME = "org/apache/ctakes/core/sections/sections.txt";
+    protected static final String DEFAULT_SECTION_FILE_NAME = "org/apache/ctakes/core/sections/TMK_sections.txt";
     public static final String PARAM_FIELD_SEPARATOR = ",";
     public static final String PARAM_COMMENT = "#";
     public static final String SIMPLE_SEGMENT = "SIMPLE_SEGMENT";

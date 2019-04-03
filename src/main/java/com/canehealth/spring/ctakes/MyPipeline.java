@@ -121,7 +121,7 @@ public class MyPipeline {
 	//	 builder.add(AnalysisEngineFactory.createEngineDescription( CdaCasInitializer.class ));
 	     
 	//	  builder.add(AnalysisEngineFactory.createEngineDescription(SimpleSegmentAnnotator.class));
-		builder.add(AnalysisEngineFactory.createEngineDescription(/*Sectionizer.class*/myCDASegmentAnnotator.class));
+		builder.add(AnalysisEngineFactory.createEngineDescription(Sectionizer.class/*myCDASegmentAnnotator.class*/));
 		
 		
 		
