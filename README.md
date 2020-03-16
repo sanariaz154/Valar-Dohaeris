@@ -1,6 +1,10 @@
 # ctakes-knowledge-engineering
 KB generation of clinical data using cTAKES NLP and Neo4j 
 
+## Pre-Req
+* Understanding of UIMA and cTAKES archetecture
+* Configure cTAKES java pipeline in your system and download all resources required for ctakes. More details can be found on [cTAKES developer guide](https://cwiki.apache.org/confluence/display/CTAKES/cTAKES+3.2+Developer+Install+Guide).
+
 ## Notes
 * Resources folder is deleted from this repository due to large dictionary files and inconsistent jars. The zip file of all resources will be shared through google drive link later. 
 * Change the Neo4j database path according to your system from _Neo4JPopulation.java_ (or _Neo4jPopulationDiseaseOriented.java_ , according to case)
