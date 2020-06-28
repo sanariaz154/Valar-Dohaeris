@@ -13,7 +13,7 @@ She adhered to a regular exercise program and vitamin regimen, smoked 2 packs of
 
 <img src="https://github.com/sanariaz154/Valar-Dohaeris/blob/master/imgs/cem-annotations-ex2.PNG?raw=true" />
 
-**_Neo4j Graoh Ontology_**
+**_Neo4j Graph Ontology_**
 
 <img src="https://github.com/sanariaz154/Valar-Dohaeris/blob/master/imgs/ex2.png?raw=true" />
 
@@ -26,7 +26,7 @@ Following text is the medication section of a Clinical Discharge Summary taken f
 >  - Zocor 40 mg once a day, and there is a fasting lipid profile pending at the time of this dictation.  I see that his LDL was 136 on May 3, 2002. 
 >  - Plavix 600 mg p.o. x1 which I am giving him tonight.
 
-**_Neo4j Graoh Ontology_**
+**_Neo4j Graph Ontology_**
 <img src="https://github.com/sanariaz154/Valar-Dohaeris/blob/master/imgs/ex1.png?raw=true" />
 
 ## Pre-Req
