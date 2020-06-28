@@ -46,3 +46,9 @@ Following text is the medication section of a Clinical Discharge Summary taken f
 
 
 
+## Phase 2
+
+In phase-2 of development, we will be applying different graph-ml algorithm (like decision trees) on available data in graph to get a good accuracy of diagnosis. This phase will also be focusing on Knowledge Validation, Inferencing and Explanation/ Justification process of knowledge Engineering to maintain our healthcare knowledge base. Currently we do not have CCDA’s available with information of symptom of patients (chief complaint, reason for visit etc.). For the time being, we are collecting data from online sources and will use that to symptom based disease diagnosis.
+
+
+
