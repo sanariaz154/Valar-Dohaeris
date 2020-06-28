@@ -1,5 +1,7 @@
 # ctakes-knowledge-engineering
-KB generation of clinical data using cTAKES NLP and Neo4j 
+KB generation of clinical data using cTAKES NLP and Neo4j . This is a getting-statred/demo repository of complete project. This project is in phase 1 of development and still in progress. 
+
+## Example 
 
 ## Pre-Req
 * Understanding of UIMA and cTAKES archetecture
@@ -11,5 +13,8 @@ KB generation of clinical data using cTAKES NLP and Neo4j
 * If processing CCDA documents, set _is_ccda=true_ in _cTAKESService.java_
 * If processing multiple documents, set _is_CPE=true_ in _cTAKESService.java_ and send documents directory path through postman.
 * To get data from multiple healthcare sites for processing, run crawlers  or simply download the documents already extracted given in [med-harvest](https://github.com/sanariaz154/med-harvest) repository and you will get more than enough data in documents form for testing.
+
+## Framework
+
 
 
