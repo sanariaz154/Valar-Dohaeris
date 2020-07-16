@@ -1,5 +1,5 @@
 
-[![GitHub license](https://img.shields.io/github/license/sanariaz154/Valar-Dohaeris?style=plastic)](https://github.com/sanariaz154/Valar-Dohaeris/blob/master/LICENSE) [![GitHub issues](https://img.shields.io/github/issues/sanariaz154/Valar-Dohaeris?style=plastic)](https://github.com/sanariaz154/Valar-Dohaeris/issues)
+[![GitHub license](https://img.shields.io/github/license/sanariaz154/Valar-Dohaeris?style=plastic)](https://github.com/sanariaz154/Valar-Dohaeris/blob/master/LICENSE) [![GitHub issues](https://img.shields.io/github/issues/sanariaz154/Valar-Dohaeris?style=plastic)](https://github.com/sanariaz154/Valar-Dohaeris/issues)  ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/sanariaz154/Valar-Dohaeris?style=plastic)
 
 # ctakes-knowledge-engineering
 KB generation of clinical data using cTAKES NLP and Neo4j . This is a getting-statred/demo repository of complete project. This project is in phase 1 of development and still in progress. 
