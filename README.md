@@ -1,3 +1,6 @@
+
+[![GitHub license](https://img.shields.io/github/license/sanariaz154/Valar-Dohaeris?style=plastic)](https://github.com/sanariaz154/Valar-Dohaeris/blob/master/LICENSE) 
+
 # ctakes-knowledge-engineering
 KB generation of clinical data using cTAKES NLP and Neo4j . This is a getting-statred/demo repository of complete project. This project is in phase 1 of development and still in progress. 
 
